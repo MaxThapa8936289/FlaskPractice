@@ -1,6 +1,7 @@
 import flask
 
 from flask import Flask, redirect, url_for, request, render_template
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -46,6 +47,19 @@ def login():
 @app.route('/hello/<user>')
 def hello_name(user):
     return render_template('hello.html', name=user)
+
+
+@app.route('/upload')
+def upload_file():
+    return render_template('upload.html')
+
+
+@app.route('/uploader', methods=['GET', 'POST'])
+def upload_file2():
+    if request.method == 'POST':
+        f = request.files['file']
+        f.save(secure_filename(f.filename))
+        return 'file uploaded successfully'
 
 
 if __name__ == '__main__':
