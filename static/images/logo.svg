@@ -1,0 +1,17 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="802" width="802" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_8" d="m0.75,400.75c0,-220.99448 179.00552,-400 400,-400c220.99448,0 400,179.00552 400,400c0,220.99448 -179.00552,400 -400,400c-220.99448,0 -400,-179.00552 -400,-400z" stroke-opacity="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="1.5" stroke="#000000" fill-opacity="null" fill="#052942"/>
+  <text font-style="italic" font-weight="normal" stroke="#000000" transform="matrix(20.28364738020233,0,0,13.160448331992901,-1844.6713666575656,-3474.8369046284283) " xml:space="preserve" text-anchor="start" font-family="'League Gothic', sans-serif" font-size="24" id="svg_16" y="292.94844" x="92.40642" stroke-width="0" fill="#ffffff">MY</text>
+  <text font-style="italic" font-weight="normal" stroke="#000000" transform="matrix(20.28364738020233,0,0,13.160448331992901,-1844.6713666575656,-3474.8369046284283) " xml:space="preserve" text-anchor="start" font-family="'League Gothic', sans-serif" font-size="24" id="svg_18" y="313.16052" x="96.25188" stroke-width="0" fill="#ffffff">GYM</text>
+ </g>
+</svg>

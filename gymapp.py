@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def home_page():
-    return render_template('home_page.html')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/create_account')
@@ -57,4 +57,4 @@ def login_auth():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

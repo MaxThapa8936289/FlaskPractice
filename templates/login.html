@@ -3,7 +3,7 @@
    {% if error=='failed' %}
    Your username and password did not match. Please try again. <br/>
    {% endif %}
-      <form action = "http://localhost:5000/login/authentication" method = "POST">
+      <form action = "/login/authentication" method = "POST">
          <p>Enter login details:</p>
           <p><input type="text" name ="username" placeholder="Username"/></p>
           <p><input type="password" name="password" placeholder="Password"/></p>
