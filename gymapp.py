@@ -2,6 +2,7 @@ import flask
 
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
@@ -19,10 +20,11 @@ def create_account():
 @app.route('/account_complete',  methods=['POST'])
 def account_complete():
     user = request.form['username']
-    pw = request.form['password']
+    pm = request.form['password']
     email = request.form["email"]
-    with open('users.txt', 'a') as f:
-        f.write(user+','+pw+','+email)
+    with open('static/users.txt', 'a') as f:
+        password = sha256_crypt.encrypt(pm)
+        f.write(user+','+password+','+email)
         f.write('\n')
     return redirect(url_for('userpage', username=user))
 
@@ -30,6 +32,7 @@ def account_complete():
 @app.route('/u/<username>')
 def userpage(username):
     return render_template('userpage.html', name=username)
+
 
 @app.route('/login')
 @app.route('/login/<err>')
@@ -43,10 +46,10 @@ def login_auth():
     user = request.form["username"]
     pw = request.form["password"]
     success = False
-    with open('users.txt', 'r') as f:
+    with open('static/users.txt', 'r') as f:
         for line in f:
             line = line.split(',')
-            if line[0] == user and line[1] == pw:
+            if line[0] == user and sha256_crypt.verify(pw, line[1]):
                 print("success")
                 success = True
                 break
@@ -54,6 +57,16 @@ def login_auth():
         return redirect(url_for('userpage', username=user))
     else:
         return redirect(url_for('login', err='failed'))
+
+
+@app.route('/review')
+def leave_review():
+    return render_template('review_form.html')
+
+
+@app.route('/save_review', methods=['POST'])
+def save_review():
+    return 'Review Saved'
 
 
 if __name__ == '__main__':
