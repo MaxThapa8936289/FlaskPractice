@@ -1,8 +1,6 @@
-import flask
-
 from flask import Flask, redirect, url_for, request, render_template
-from werkzeug.utils import secure_filename
 from passlib.hash import sha256_crypt
+import pymysql
 
 app = Flask(__name__)
 
@@ -24,6 +22,39 @@ def account_complete():
     email = request.form["email"]
     with open('static/users.txt', 'a') as f:
         password = sha256_crypt.encrypt(pm)
+        f.write(user+','+password+','+email)
+        f.write('\n')
+    return redirect(url_for('userpage', username=user))
+
+
+@app.route('/account_complete',  methods=['POST'])
+def account_complete():
+    username = request.form['username']
+    password = sha256_crypt.encrypt(request.form['password'])
+    email = request.form["email"]
+    
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='password',
+                                 db='userdata')
+    try:
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO 'userlogin' ('username','email', 'password') VALUES (%s, %s, %s)"
+            cursor.execute(sql, (username,email,))
+        # Save changes
+        connection.commit()
+
+        with connection.cursor() as cursor:
+            # Read a single record
+            sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
+            cursor.execute(sql, ('webmaster@python.org',))
+            result = cursor.fetchone()
+            print(result)
+    finally:
+        connection.close()
+    
+    with open('static/users.txt', 'a') as f:
         f.write(user+','+password+','+email)
         f.write('\n')
     return redirect(url_for('userpage', username=user))
