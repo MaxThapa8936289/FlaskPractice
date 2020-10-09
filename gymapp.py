@@ -109,7 +109,7 @@ def login_auth():
         #         break
 
     if success:
-        return redirect(url_for('userpage', username=user))
+        return redirect(url_for('userpage', username=username))
     else:
         return redirect(url_for('login', err='failed'))
 
