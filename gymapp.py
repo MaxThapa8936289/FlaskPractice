@@ -85,14 +85,14 @@ def login_auth():
     username = request.form["username"]
     password = request.form["password"]
     success = False
-
+    print('authenticating')
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='password',
                                  db='userdata')
     try:
         with connection.cursor() as cursor:
-            # Create a new record
+            # Fetch record
             sql = "SELECT * FROM userlogin WHERE username = %s;"
             cursor.execute(sql, username)
             row = cursor.fetchall()
