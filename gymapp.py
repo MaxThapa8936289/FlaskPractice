@@ -92,13 +92,15 @@ def login_auth():
                                  db='userdata')
     try:
         with connection.cursor() as cursor:
-            # Fetch password hash
+            # Fetch password hash based on user
             sql = "SELECT password FROM userlogin WHERE username = %s;"
-            cursor.execute(sql, username)
-            pw_hash = cursor.fetchone()[0]
-            # verify password
-            if sha256_crypt.verify(password, pw_hash):
-                success = True
+            if cursor.execute(sql, username) == 1:  # username exists in database
+                pw_hash = cursor.fetchone()[0]
+                # verify password
+                if sha256_crypt.verify(password, pw_hash):
+                    success = True
+            else:
+                pass
     finally:
         connection.close()
 
