@@ -93,7 +93,7 @@ def login_auth():
     try:
         with connection.cursor() as cursor:
             # Fetch record
-            sql = "SELECT * FROM userlogin WHERE username = %s;"
+            sql = "SELECT username FROM userlogin WHERE username = %s;"
             cursor.execute(sql, username)
             row = cursor.fetchall()
             print(row)
