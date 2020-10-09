@@ -8,7 +8,7 @@ Python packages required to run:
 - pymysql
 
 
-Changelog:
+## Changelog:
 
 09/10/2020
 - Removed superfluous virtual env files
