@@ -63,18 +63,51 @@ def login(err='none'):
     return render_template('login.html', error=err)
 
 
+# @app.route('/login/authentication', methods=['POST'])
+# def login_auth():
+#     user = request.form["username"]
+#     pw = request.form["password"]
+#     success = False
+#     with open('static/users.txt', 'r') as f:
+#         for line in f:
+#             line = line.split(',')
+#             if line[0] == user and sha256_crypt.verify(pw, line[1]):
+#                 print("success")
+#                 success = True
+#                 break
+#     if success:
+#         return redirect(url_for('userpage', username=user))
+#     else:
+#         return redirect(url_for('login', err='failed'))
+
 @app.route('/login/authentication', methods=['POST'])
 def login_auth():
-    user = request.form["username"]
-    pw = request.form["password"]
+    username = request.form["username"]
+    password = request.form["password"]
     success = False
-    with open('static/users.txt', 'r') as f:
-        for line in f:
-            line = line.split(',')
-            if line[0] == user and sha256_crypt.verify(pw, line[1]):
-                print("success")
-                success = True
-                break
+
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='password',
+                                 db='userdata')
+    try:
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "SELECT * FROM userlogin WHERE username = %s;"
+            cursor.execute(sql, username)
+            row = cursor.fetchall()
+            print(row)
+
+    finally:
+        connection.close()
+
+        # for line in f:
+        #     line = line.split(',')
+        #     if line[0] == user and sha256_crypt.verify(pw, line[1]):
+        #         print("success")
+        #         success = True
+        #         break
+
     if success:
         return redirect(url_for('userpage', username=user))
     else:
