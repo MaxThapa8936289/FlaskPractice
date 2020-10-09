@@ -30,8 +30,9 @@ def create_account():
 @app.route('/account_complete',  methods=['POST'])
 def account_complete():
     username = request.form['username']
-    password = sha256_crypt.encrypt(request.form['password'])
+    password = sha256_crypt.hash(request.form['password'])
     email = request.form["email"]
+    print(password)
 
     connection = pymysql.connect(host='localhost',
                                  user='root',
@@ -40,7 +41,6 @@ def account_complete():
     try:
         with connection.cursor() as cursor:
             # Create a new record
-            print(password)
             sql = "INSERT INTO userlogin ('username','email', 'password') VALUES (%s, %s, %s);"
             cursor.execute(sql, (username, email, password))
         # Save changes
