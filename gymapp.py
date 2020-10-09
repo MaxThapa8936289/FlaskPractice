@@ -15,24 +15,13 @@ def create_account():
     return render_template('account_form.html')
 
 
-# @app.route('/account_complete',  methods=['POST'])
-# def account_complete():
-#     user = request.form['username']
-#     pm = request.form['password']
-#     email = request.form["email"]
-#     with open('static/users.txt', 'a') as f:
-#         password = sha256_crypt.encrypt(pm)
-#         f.write(user+','+password+','+email)
-#         f.write('\n')
-#     return redirect(url_for('userpage', username=user))
+# TODO: Add verification that the fields are filled (possibly a HTML solution?)
 
-
-@app.route('/account_complete',  methods=['POST'])
+@app.route('/account_complete', methods=['POST'])
 def account_complete():
     username = request.form['username']
     password = sha256_crypt.hash(request.form['password'])
     email = request.form["email"]
-    print(password)
 
     connection = pymysql.connect(host='localhost',
                                  user='root',
@@ -59,26 +48,8 @@ def userpage(username):
 @app.route('/login')
 @app.route('/login/<err>')
 def login(err='none'):
-    print(err, type(err))
     return render_template('login.html', error=err)
 
-
-# @app.route('/login/authentication', methods=['POST'])
-# def login_auth():
-#     user = request.form["username"]
-#     pw = request.form["password"]
-#     success = False
-#     with open('static/users.txt', 'r') as f:
-#         for line in f:
-#             line = line.split(',')
-#             if line[0] == user and sha256_crypt.verify(pw, line[1]):
-#                 print("success")
-#                 success = True
-#                 break
-#     if success:
-#         return redirect(url_for('userpage', username=user))
-#     else:
-#         return redirect(url_for('login', err='failed'))
 
 @app.route('/login/authentication', methods=['POST'])
 def login_auth():
@@ -103,13 +74,6 @@ def login_auth():
                 pass
     finally:
         connection.close()
-
-        # for line in f:
-        #     line = line.split(',')
-        #     if line[0] == user and sha256_crypt.verify(pw, line[1]):
-        #         print("success")
-        #         success = True
-        #         break
 
     if success:
         return redirect(url_for('userpage', username=username))
