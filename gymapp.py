@@ -85,7 +85,7 @@ def login_auth():
     username = request.form["username"]
     password = request.form["password"]
     success = False
-    print('authenticating')
+    print('authenticating2')
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='password',
