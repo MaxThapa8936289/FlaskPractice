@@ -11,6 +11,8 @@ Python packages required to run:
 ## Changelog:
 
 09/10/2020
+- Replaced the file based userdata storage with MYSQL database based 
+storage
 - Removed superfluous virtual env files
 - Updated README to include changelog
 - Updated README to include package requirments
