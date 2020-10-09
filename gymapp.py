@@ -41,7 +41,7 @@ def account_complete():
         with connection.cursor() as cursor:
             # Create a new record
             print(password)
-            sql = "INSERT INTO userlogin ('username','email', 'password') VALUES (%s, %s, %s)"
+            sql = "INSERT INTO userlogin ('username','email', 'password') VALUES (%s, %s, %s);"
             cursor.execute(sql, (username, email, password))
         # Save changes
         connection.commit()
