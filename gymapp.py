@@ -85,19 +85,20 @@ def login_auth():
     username = request.form["username"]
     password = request.form["password"]
     success = False
-    print('authenticating2')
+
     connection = pymysql.connect(host='localhost',
                                  user='root',
                                  password='password',
                                  db='userdata')
     try:
         with connection.cursor() as cursor:
-            # Fetch record
-            sql = "SELECT username FROM userlogin WHERE username = %s;"
+            # Fetch password hash
+            sql = "SELECT password FROM userlogin WHERE username = %s;"
             cursor.execute(sql, username)
-            row = cursor.fetchall()
-            print(row)
-
+            pw_hash = cursor.fetchone()[0]
+            # verify password
+            if sha256_crypt.verify(password, pw_hash):
+                success = True
     finally:
         connection.close()
 
