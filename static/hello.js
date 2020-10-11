@@ -1,3 +1,3 @@
-function sayHello() {
-   alert("Hello World")
+function sayWelcome() {
+   alert("Welcome to MyGym")
 }

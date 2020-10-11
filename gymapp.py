@@ -23,9 +23,9 @@ def account_complete():
     password = sha256_crypt.hash(request.form['password'])
     email = request.form["email"]
 
-    connection = pymysql.connect(host='localhost',
-                                 user='root',
-                                 password='password',
+    connection = pymysql.connect(host='54.243.215.108',
+                                 user='user2',
+                                 password='password2',
                                  db='userdata')
     try:
         with connection.cursor() as cursor:
@@ -85,6 +85,8 @@ def login_auth():
 def leave_review():
     return render_template('review_form.html')
 
+
+# TODO: Process review and save to database
 
 @app.route('/save_review', methods=['POST'])
 def save_review():

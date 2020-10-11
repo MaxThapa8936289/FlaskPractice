@@ -6,11 +6,12 @@
         <title>My Gym</title>
         <script type = "text/javascript"
                 src = "{{ url_for('static', filename = 'hello.js') }}" ></script>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
         <img src="/static/images/logo2.svg" alt="Logo" width="100" height="100">
         <h1> Welcome to MyGym </h1></br>
-        <input type = "button" onclick = "sayHello()" value = "Say Hello" /></br>
+        <input type = "button" onclick = "sayWelcome()" value = "Welcome Button" /></br>
         <a href="/create_account">Create an account</a></br>
         <a href="/login">Login</a><br>
         <a href="/review">Leave a review</a>
