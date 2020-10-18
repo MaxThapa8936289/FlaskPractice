@@ -7,13 +7,24 @@
         <script type = "text/javascript"
                 src = "{{ url_for('static', filename = 'hello.js') }}" ></script>
         <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/navbar.css">
     </head>
     <body>
-        <img src="/static/images/logo2.svg" alt="Logo" width="100" height="100">
+
+        <ul>
+            <img style="float:left" src="/static/images/MyGymLogo.svg" alt="Logo" width="90" height="90">
+            <li><a href="/create_account">Create an account</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/review">Review</a></li>
+            <li><a class="active" href="/">Home</a></li>
+        </ul>
+
+    <div style="padding:20px;">
         <h1> Welcome to MyGym </h1></br>
         <input type = "button" onclick = "sayWelcome()" value = "Welcome Button" /></br>
-        <a href="/create_account">Create an account</a></br>
-        <a href="/login">Login</a><br>
-        <a href="/review">Leave a review</a>
+        <img src="/static/images/MyGymLogo.svg" alt="Logo" width="200" height="300">
+    </div>
+
     </body>
+
 </html>

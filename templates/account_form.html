@@ -2,14 +2,25 @@
 <html>
     <head>
         <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/navbar.css">
     </head>
     <body>
-      <form action = "/account_complete" method = "POST">
-         <p>Create Account details:</p>
-          <p><input type="text" name ="username" placeholder="Username"/></p>
-          <p><input type="password" name="password" placeholder="Password"/></p>
-          <p><input type="email" name="email" placeholder="@"></p>
-         <p><input type="submit" value ="submit" /></p>
-      </form>
+        <ul>
+            <img style="float:left" src="/static/images/MyGymLogo.svg" alt="Logo" width="90" height="90">
+            <li><a class="active" href="/create_account">Create an account</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/review">Review</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+
+        <div style="padding:20px;">
+            <form action = "/account_complete" method = "POST">
+             <p>Create Account details:</p>
+              <p><input type="text" name ="username" placeholder="Username" required/></p>
+              <p><input type="password" name="password" placeholder="Password" required/></p>
+              <p><input type="email" name="email" placeholder="@" required></p>
+             <p><input type="submit" value ="submit" /></p>
+            </form>
+        </div>
     </body>
 </html>

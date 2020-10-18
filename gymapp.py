@@ -57,9 +57,9 @@ def login_auth():
     password = request.form["password"]
     success = False
 
-    connection = pymysql.connect(host='localhost',
-                                 user='root',
-                                 password='password',
+    connection = pymysql.connect(host='54.243.215.108',
+                                 user='user2',
+                                 password='password2',
                                  db='userdata')
     try:
         with connection.cursor() as cursor:
