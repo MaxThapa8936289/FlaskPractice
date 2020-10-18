@@ -15,49 +15,29 @@ def create_account():
     return render_template('account_form.html')
 
 
-@app.route('/account_complete',  methods=['POST'])
+# TODO: Add verification that the fields are filled (possibly a HTML solution?)
+
+@app.route('/account_complete', methods=['POST'])
 def account_complete():
-    user = request.form['username']
-    pm = request.form['password']
+    username = request.form['username']
+    password = sha256_crypt.hash(request.form['password'])
     email = request.form["email"]
-    with open('static/users.txt', 'a') as f:
-        password = sha256_crypt.encrypt(pm)
-        f.write(user+','+password+','+email)
-        f.write('\n')
-    return redirect(url_for('userpage', username=user))
 
+    connection = pymysql.connect(host='54.243.215.108',
+                                 user='user2',
+                                 password='password2',
+                                 db='userdata')
+    try:
+        with connection.cursor() as cursor:
+            # Create a new record
+            sql = "INSERT INTO userlogin (username, email, password) VALUES (%s, %s, %s);"
+            cursor.execute(sql, (username, email, password))
+        # Save changes
+        connection.commit()
+    finally:
+        connection.close()
 
-# @app.route('/account_complete',  methods=['POST'])
-# def account_complete():
-#     username = request.form['username']
-#     password = sha256_crypt.encrypt(request.form['password'])
-#     email = request.form["email"]
-#
-#     connection = pymysql.connect(host='localhost',
-#                                  user='root',
-#                                  password='password',
-#                                  db='userdata')
-#     try:
-#         with connection.cursor() as cursor:
-#             # Create a new record
-#             sql = "INSERT INTO 'userlogin' ('username','email', 'password') VALUES (%s, %s, %s)"
-#             cursor.execute(sql, (username,email,))
-#         # Save changes
-#         connection.commit()
-#
-#         with connection.cursor() as cursor:
-#             # Read a single record
-#             sql = "SELECT `id`, `password` FROM `users` WHERE `email`=%s"
-#             cursor.execute(sql, ('webmaster@python.org',))
-#             result = cursor.fetchone()
-#             print(result)
-#     finally:
-#         connection.close()
-#
-#     with open('static/users.txt', 'a') as f:
-#         f.write(user+','+password+','+email)
-#         f.write('\n')
-#     return redirect(url_for('userpage', username=user))
+    return redirect(url_for('userpage', username=username))
 
 
 @app.route('/u/<username>')
@@ -68,24 +48,35 @@ def userpage(username):
 @app.route('/login')
 @app.route('/login/<err>')
 def login(err='none'):
-    print(err, type(err))
     return render_template('login.html', error=err)
 
 
 @app.route('/login/authentication', methods=['POST'])
 def login_auth():
-    user = request.form["username"]
-    pw = request.form["password"]
+    username = request.form["username"]
+    password = request.form["password"]
     success = False
-    with open('static/users.txt', 'r') as f:
-        for line in f:
-            line = line.split(',')
-            if line[0] == user and sha256_crypt.verify(pw, line[1]):
-                print("success")
-                success = True
-                break
+
+    connection = pymysql.connect(host='54.243.215.108',
+                                 user='user2',
+                                 password='password2',
+                                 db='userdata')
+    try:
+        with connection.cursor() as cursor:
+            # Fetch password hash based on user
+            sql = "SELECT password FROM userlogin WHERE username = %s;"
+            if cursor.execute(sql, username) == 1:  # username exists in database
+                pw_hash = cursor.fetchone()[0]
+                # verify password
+                if sha256_crypt.verify(password, pw_hash):
+                    success = True
+            else:
+                pass
+    finally:
+        connection.close()
+
     if success:
-        return redirect(url_for('userpage', username=user))
+        return redirect(url_for('userpage', username=username))
     else:
         return redirect(url_for('login', err='failed'))
 
@@ -94,6 +85,8 @@ def login_auth():
 def leave_review():
     return render_template('review_form.html')
 
+
+# TODO: Process review and save to database
 
 @app.route('/save_review', methods=['POST'])
 def save_review():

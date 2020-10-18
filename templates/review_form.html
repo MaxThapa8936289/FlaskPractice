@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html>
-   <body>
-      <form action = "/save_review" method = "POST">
-          <p>Please provide your gender:</p><br>
-              <input type="radio" id="male" name="gender" value="male">
-              <label for="male">Male</label><br>
-              <input type="radio" id="female" name="gender" value="female">
-              <label for="female">Female</label><br>
-              <input type="radio" id="other" name="gender" value="other">
-              <label for="other">Other</label>
-          <br>
-          <p>Please provide your date of birth:</p><br>
-            <input type="date" name="DOB"
-                   value="2020-01-01">
-          <p>How would you describe your experience at MyGym?</p><br>
-            <textarea name="experience" rows="10" cols="30" placeholder="Write your response here...">
-            </textarea>
-          <br>
-          <p><input type="submit" value ="submit" /></p>
-      </form>
-   </body>
+    <head>
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/navbar.css">
+    </head>
+    <body>
+        <ul>
+            <img style="float:left" src="/static/images/MyGymLogo.svg" alt="Logo" width="90" height="90">
+            <li><a href="/create_account">Create an account</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a class="active" href="/review">Review</a></li>
+            <li><a href="/">Home</a></li>
+        </ul>
+
+        <div style="padding:20px;">
+            <form action = "/save_review" method = "POST">
+              <p>Please provide your gender:</p><br>
+                  <input type="radio" id="male" name="gender" value="male">
+                  <label for="male" class="label">Male</label><br>
+                  <input type="radio" id="female" name="gender" value="female">
+                  <label for="female" class="label">Female</label><br>
+                  <input type="radio" id="other" name="gender" value="other">
+                  <label for="other" class="label">Other</label>
+              <br>
+              <p>Please provide your date of birth:</p><br>
+                <input type="date" name="DOB"
+                       value="2020-01-01">
+              <p>How would you describe your experience at MyGym?</p><br>
+                <textarea name="experience" rows="10" cols="30" placeholder="Write your response here..."></textarea>
+              <br>
+              <p><input type="submit" value ="submit" /></p>
+            </form>
+        </div>
+    </body>
 </html>
