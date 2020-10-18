@@ -10,6 +10,13 @@ Python packages required to run:
 
 ## Changelog:
 
+18/10/2020
+- Established a sleek colour pallette
+- Added a background image to all pages
+- Updated the logo to a sleeker look
+- Added a funcitonal navigation bar, with CSS highlighting
+- Removed redundant hyperlinks 
+
 09/10/2020
 - Replaced the file based userdata storage with MYSQL database based 
 storage
