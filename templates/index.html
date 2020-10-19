@@ -25,6 +25,30 @@
         <img src="/static/images/MyGymLogo.svg" alt="Logo" width="200" height="300">
     </div>
 
+<!-- REVIEWS START HERE -->
+    <section id="pathway">
+        <div class="container">
+            <div class="explanation">
+                <h1>Recent Reviews</h1>
+            </div>
+            <div class="row">
+                <div class="step">
+                    <h1> {{day[-1]}} {{date[-1]}} </h1>
+                    <p> {{message[-1]}} </p>
+                </div>
+                <div class="step">
+                    <h1> {{day[-2]}} {{date[-2]}} </h1>
+                    <p> {{message[-2]}} </p>
+                </div>
+                <div class="step">
+                    <h1> {{day[-3]}} {{date[-3]}} </h1>
+                    <p> {{message[-3]}} </p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- REVIEWS ENDS HERE -->
+    
     </body>
 
 </html>
