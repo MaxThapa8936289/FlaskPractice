@@ -35,3 +35,38 @@ p {
   color: white;
   font-size: 15px;
 }
+
+
+#pathway{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.explanation {
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 1%;
+}
+
+.row{
+    padding: 5vh 0;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.step {
+    width: 30%;
+    padding: 1%;
+}
+
+.step h1{
+    margin-bottom: 3%;
+}
