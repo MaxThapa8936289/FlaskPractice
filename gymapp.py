@@ -66,6 +66,7 @@ def check(uname):
     else:
         return "available"
 
+
 @app.route('/account_complete', methods=['POST'])
 def account_complete():
     username = request.form['username']
@@ -171,7 +172,12 @@ def save_review():
     finally:
         connection.close()
 
-    return redirect(url_for('leave_review'))
+    return redirect(url_for('thank_feedback'))
+
+
+@app.route('/review/thankyou')
+def thank_feedback():
+    return render_template('thanks_feedback.html')
 
 
 if __name__ == '__main__':
