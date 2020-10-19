@@ -2,6 +2,8 @@
 
 A repository for practicing Flask, HTML, CSS and building a web app.
 
+The deployed website can be reached at http://mygym.studio
+
 Python packages required to run:
 - Flask
 - passlib
