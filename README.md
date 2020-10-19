@@ -10,6 +10,14 @@ Python packages required to run:
 
 ## Changelog:
 
+19/10/2020
+- Created a review database
+- Adeed database processing for the reviews
+- Added 'Recent Reviews' feature to the index page
+- Added database checking for available usernames
+- Added javascript visual prompt for availability
+- Finished and deployed website
+
 18/10/2020
 - Established a sleek colour pallette
 - Added a background image to all pages
