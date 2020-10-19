@@ -1,8 +1,9 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, session
 from passlib.hash import sha256_crypt
 import pymysql
 
 app = Flask(__name__)
+app.secret_key = 'MyGymFlaskKey'
 
 
 @app.route('/')
@@ -22,7 +23,9 @@ def account_complete():
     username = request.form['username']
     password = sha256_crypt.hash(request.form['password'])
     email = request.form["email"]
+    session['username'] = username  # Initiate user session
 
+    # Add account to records
     connection = pymysql.connect(host='54.243.215.108',
                                  user='user2',
                                  password='password2',
@@ -48,7 +51,11 @@ def userpage(username):
 @app.route('/login')
 @app.route('/login/<err>')
 def login(err='none'):
-    return render_template('login.html', error=err)
+    if 'username' in session:
+        username = session['username']
+        return render_template('logged_in.html', name=username)
+    else:
+        return render_template('login.html', error=err)
 
 
 @app.route('/login/authentication', methods=['POST'])
@@ -76,9 +83,17 @@ def login_auth():
         connection.close()
 
     if success:
+        session['username'] = username  # Initiate user session
         return redirect(url_for('userpage', username=username))
     else:
         return redirect(url_for('login', err='failed'))
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it is there
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 
 @app.route('/review')
