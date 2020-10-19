@@ -16,6 +16,29 @@ def create_account():
     return render_template('account_form.html')
 
 
+@app.route('/check/<uname>')
+def check(uname):
+    name_check = ''
+    connection = pymysql.connect(host='54.243.215.108',
+                                 user='user2',
+                                 password='password2',
+                                 db='userdata')
+    try:
+        with connection.cursor() as cursor:
+            # Fetch password hash based on user
+            sql = "SELECT username FROM userlogin;"
+            cursor.execute(sql)
+            users = cursor.fetchall()
+            name_check = (uname.strip(),)
+    finally:
+        connection.close()
+
+    if name_check in users:
+        return "unavailable"
+    else:
+        return "available"
+
+
 # TODO: Add verification that the fields are filled (possibly a HTML solution?)
 
 @app.route('/account_complete', methods=['POST'])
